@@ -37,12 +37,13 @@ Sample airdrop format:
 1. Install dependencies: `cd contracts && yarn`
 2. Compile: `yarn hardhat compile`
 3. Run tests: `yarn hardhat test`
-4. Generate documentation: `yarn hardhat docgen` (generates html docs at `./contracts/contracts/docgen/`)
-5. Deploy: `yarn hardhat run scripts/deploy.ts` (use the `--network` flag)
+4. Generate documentation: `yarn hardhat docgen` (generates html docs at `./contracts/contracts/docgen/`).
+   Most contracts implement the NatSpec documentation format, which docgen picks up.
+5. Deploy: `yarn hardhat run scripts/deploy.ts` (use the `--network` flag, although note that you don't need to deploy anything to use the app locally)
 
 ### Contract Architecture
 
-Ther are three contracts: `ERC20Factory`, `ERC20Impl` and `Airdrop`
+There are three contracts: `ERC20Factory`, `ERC20Impl` and `Airdrop`
 
 **`ERC20Factory`:** The `ERC20Factory` contract deploys ERC20 clones. After deployment, the factory calls `initialize` to set up the ERC20 metadata and mint the initial total supply to the owner's wallet. It also contains a helper `.getERC20s()` function that returns all tokens deployed by a given user.
 
@@ -71,3 +72,4 @@ To plan for a widespread release, I'd work on the following features:
 ### Tradeoffs
 
 1. I decided against working on anything backend related in the interest of time, which was instead spent working on the factory pattern using clones.
+2. There could be a significant imporovement in terms of error handling, and verbose alerts on the frontend (invalid allowance, error simulating transaction before broadcasting it etc)
